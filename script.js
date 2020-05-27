@@ -1,3 +1,32 @@
+// created the Variables 
+var input = $("#city-input").val().trim();
+var cityName = "";
+var temperature = "";
+var humidity = "";
+var windSpeed = "";
+var uvIndex = "";
+var queryURL = 
+
+// On click event
+
+
+
+// API info
+
+
+
+
+// Ajax call
+
+
+
+
+
+
+
+
+
+
 // make variables for input, cities search history
 // click event button
 // funtion that is used when we click button to call API 
