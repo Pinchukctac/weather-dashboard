@@ -1,31 +1,41 @@
 // created the Variables 
-var input = $("#city-input").val().trim();
+var input = $("#search-input").val();
 var cityName = "";
 var temperature = "";
 var humidity = "";
 var windSpeed = "";
 var uvIndex = "";
-var queryURL = 
+var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=e9a9052aaa132988695d1b11382ed400"
+
+
 
 // On click event
+$("#search-button").on("click", function(event){
+
+    // Ajax call
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+
+        .then(function(response){
+        console.log(queryURL);
+        console.log(response);
+
+        var results = response.data;
+
+        for (var i = 0; i < results.length; i++){
+
+        }
+        })
+
+    
 
 
 
-// API info
 
 
-
-
-// Ajax call
-
-
-
-
-
-
-
-
-
+});
 
 // make variables for input, cities search history
 // click event button
