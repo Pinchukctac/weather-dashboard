@@ -5,6 +5,8 @@ var temperature = "";
 var humidity = "";
 var windSpeed = "";
 var uvIndex = "";
+var lat = "";
+var long = "";
 
 
 
@@ -24,49 +26,51 @@ $("#search-button").on("click", function(event){
     })
 
     .then(function(response){
-    // console.log(queryURL);
-    // console.log(response);
+            // console.log(queryURL);
+            // console.log(response);
 
-    $('#city-name').empty();
+            $('#city-name').empty();
 
+            lat = response.coord.lat
+            long = response.coord.lon
+
+            var temp = (response.main.temp - 273.15) * 1.80 + 32;    
+            var tempF = (Math.floor(temp))
+            var card = $("<div>").addClass("card");
+            var cardBody = $("<div>").addClass("card-body");
+            var city = $("<h4>").addClass("card-title").text(response.name);
+            // var cityDate = $("<h4>").addClass("card-title").text(date.toLocaleDateString('en-US'));
+            var temperature = $("<p>").addClass("card-text current-temp").text("Temperature: " + tempF + " °F");
+            var humidity = $("<p>").addClass("card-text current-humidity").text("Humidity: " + response.main.humidity + "%");
+            var wind = $("<p>").addClass("card-text current-wind").text("Wind Speed: " + response.wind.speed + " MPH");
+            // var uvIndex = $("<p>").addClass("card-text current-UV").text("UV Index: " + response.wind.speed);
+            var image = $("<img>").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png")
+
+            $(city).append(image)
+            $(cardBody).append(city, temperature, humidity, wind);
+            $(card).append(cardBody);
+            $("#city-name").append(card)
+
+            
+
+    })
+
+    .then(function(response){
+
+        var uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=e9a9052aaa132988695d1b11382ed400&lat="+lat+"&lon="+long
+
+        $.ajax({
+            url: uvQueryURL,
+            method: "GET"
+        })
     
-    var temp = (response.main.temp - 273.15) * 1.80 + 32;    
-    var tempF = (Math.floor(temp))
-    var card = $("<div>").addClass("card");
-    var cardBody = $("<div>").addClass("card-body");
-    var city = $("<h4>").addClass("card-title").text(response.name);
-    // var cityDate = $("<h4>").addClass("card-title").text(date.toLocaleDateString('en-US'));
-    var temperature = $("<p>").addClass("card-text current-temp").text("Temperature: " + tempF + " °F");
-    var humidity = $("<p>").addClass("card-text current-humidity").text("Humidity: " + response.main.humidity + "%");
-    var wind = $("<p>").addClass("card-text current-wind").text("Wind Speed: " + response.wind.speed + " MPH");
-    // var uvIndex = $("<p>").addClass("card-text current-UV").text("UV Index: " + response.wind.speed);
-    var image = $("<img>").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png")
-
-    $(city).append(image)
-    $(cardBody).append(city, temperature, humidity, wind);
-    $(card).append(cardBody);
-    $("#city-name").append(card)
-
-    
-
-    });
-    // .then(function(response){
-
-    //     var uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=e9a9052aaa132988695d1b11382ed400&lat="+lat+"&lon="+long
-
-    //     $.ajax({
-    //         url: uvQueryURL,
-    //         method: "GET"
-    //     })
-    
-    //     var lat = response.coord.lat
-    //     var long = response.coord.lon
-    
+        .then(function(response){    
            
-    //     console.log(uvQueryURL);
-    //     console.log(lat);
-    //     console.log(long);
-    // })
+        console.log(response);
+        console.log(lat);
+        console.log(long);
+        })
+    })
 });
 
 
