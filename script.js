@@ -49,7 +49,7 @@ $("#search-button").on("click", function(event){
     // function that pulls the UV index
     .then(function(event2){
 
-        var uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=e9a9052aaa132988695d1b11382ed400&lat="+lat+"&lon="+long
+        var uvQueryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=e9a9052aaa132988695d1b11382ed400&lat="+lat+"&lon="+long
 
         $.ajax({
             url: uvQueryURL,
