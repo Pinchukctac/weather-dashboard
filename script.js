@@ -20,9 +20,9 @@ $("#search-button").on("click", function(event){
 });
 
 
-$(".saved-city").on("click", function(event){
+$("#history").on("click", function(event){
     event.preventDefault();
-    var oldCities = $(this).text()
+    var oldCities = $("#loc-btn").text();
     console.log(oldCities)
     getWeather(oldCities)
    
