@@ -16,6 +16,7 @@ $("#search-button").on("click", function(event){
     event.preventDefault();
     var input = $("#search-input").val();
     getWeather(input)
+    forcastWeather(input)
    
 });
 
@@ -25,18 +26,15 @@ $("#history").on("click", function(event){
     var oldCities = $("#loc-btn").text();
     console.log(oldCities)
     getWeather(oldCities)
-   
+    forcastWeather(oldCities)
+
 });
 
 
-// On click event for 5 day forcast 
-$("#search-button").on("click", function(event){
+// Function for 5 day forcast 
+function forcastWeather(input){
     event.preventDefault();
-    var input = $("#search-input").val();
 
-
-
-    
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + input + "&appid=e9a9052aaa132988695d1b11382ed400"
 
 
@@ -73,8 +71,7 @@ $("#search-button").on("click", function(event){
     }
     })
 
-
-});
+}
 
 
 // function to store to local storage 
@@ -127,7 +124,7 @@ function showPrevious() {
         
 savedStorage();
 
-
+// Function to get the current weather 
 function getWeather(input){
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + input + "&appid=e9a9052aaa132988695d1b11382ed400"
 
