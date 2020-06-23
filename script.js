@@ -1,3 +1,4 @@
+$( document ).ready(function() {
 // created the Variables 
 var input = "";
 var cityName = "";
@@ -8,7 +9,7 @@ var uvIndex = "";
 var lat = "";
 var long = "";
 var uvIndex = "";
-var storedCities = [];
+var savedCities;
 
 
 // On click event for current weather
@@ -19,17 +20,6 @@ $("#search-button").on("click", function(event){
     forcastWeather(input)
    
 });
-
-
-$("#history").on("click", function(event){
-    event.preventDefault();
-    var oldCities = $("#loc-btn").text();
-    console.log(oldCities)
-    getWeather(oldCities)
-    forcastWeather(oldCities)
-
-});
-
 
 // Function for 5 day forcast 
 function forcastWeather(input){
@@ -77,14 +67,14 @@ function forcastWeather(input){
 // function to store to local storage 
 function saveLocation(input){
     //add this to the saved locations array
-    if (storedCities === null) {
-        storedCities = [input];
+    if (savedCities === null) {
+        savedCities = [input];
     }
-    else if (storedCities.indexOf(input) === -1) {
-        storedCities.push(input);
+    else if (savedCities.indexOf(input) === -1) {
+        savedCities.push(input);
     }
     //save the new array to localstorage
-    localStorage.setItem("city", JSON.stringify(storedCities));
+    localStorage.setItem("city", JSON.stringify(savedCities));
     savedStorage();
 }
 
@@ -109,7 +99,7 @@ function showPrevious() {
         $("#history").empty();
             var btns = $("<div>").attr("class", "list-group");
              for (var i = 0; i < savedCities.length; i++) {
-                var locBtn = $("<button>").attr("id", "loc-btn").text(savedCities[i]);
+                var locBtn = $("<button>").text(savedCities[i]);
                  if (savedCities[i] == currentLoc){
                     locBtn.attr("class", "list-group-item list-group-item-action active saved-city");
                 }
@@ -121,7 +111,16 @@ function showPrevious() {
             $("#history").append(btns);
     }
 }
-        
+
+$(document).on("click", ".saved-city", function(){
+    console.log("im a city")
+    event.preventDefault();
+    var oldCities = $(this).text();
+    console.log(oldCities)
+    getWeather(oldCities)
+    forcastWeather(oldCities)
+})      
+
 savedStorage();
 
 // Function to get the current weather 
@@ -191,3 +190,5 @@ function getWeather(input){
     })
 
 }
+
+});
